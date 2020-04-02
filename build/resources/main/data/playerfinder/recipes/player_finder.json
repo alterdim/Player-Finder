@@ -1,0 +1,23 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "DXD",
+        "DBD",
+        "DDD"
+    ],
+    "key": {
+        "D": {
+            "item": "minecraft:ender_eye"
+        },
+        "B": {
+            "item": "minecraft:diamond"
+        },
+        "X": {
+            "item": "minecraft:snowball"
+        }
+    },
+    "result": {
+        "item": "playerfinder:player_finder",
+        "count": 1
+    }
+}

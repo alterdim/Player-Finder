@@ -1,0 +1,6 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "playerfinder:items/player_finder"
+	}
+}

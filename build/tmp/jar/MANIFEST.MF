@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: player_finder
+Implementation-Version: 1.0
+Specification-Vendor: playerfinder
+Specification-Title: playerfinder
+Implementation-Timestamp: 2020-04-02T22:29:49+0200
+Specification-Version: 1
+Implementation-Vendor: examplemodsareus
+

@@ -1,0 +1,111 @@
+package com.alterdim.playerfinder.objects.items;
+
+import java.util.List;
+import java.util.function.Predicate;
+
+import javax.annotation.Nullable;
+
+import com.alterdim.playerfinder.util.helpers.KeyboardHelper;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.network.play.NetworkPlayerInfo;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.dispenser.Position;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityPredicate;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.SnowballEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextComponent;
+import net.minecraft.world.World;
+
+public class PlayerFinderItem extends Item
+{
+
+	public PlayerFinderItem(Properties properties) 
+	{
+		super(properties);
+	}
+	
+	@Override
+	public boolean hasEffect(ItemStack stack)
+	{
+		return true;
+	}
+	
+	@Override
+	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn)
+	{
+		if (KeyboardHelper.isHoldingShift())
+		{
+			tooltip.add(new StringTextComponent("\u00A77" + "Launches a snowball in direction of the closest player. Has a max range of 5000 blocks."));
+		}
+		else
+		{
+			tooltip.add(new StringTextComponent("\u00A77" + "Hold " + "\u00A7e" + "SHIFT " + "\u00A77" + "for more information."));
+		}
+		super.addInformation(stack, worldIn, tooltip, flagIn);
+		
+	}
+	
+	@Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn)
+	{
+		if (!playerIn.getCooldownTracker().hasCooldown(this) && !worldIn.isRemote)
+		{
+			
+			boolean found = true;
+			double launcherXPos = playerIn.getPosX();
+			double launcherYPos = playerIn.getPosY();
+			double launcherZPos = playerIn.getPosZ();
+			
+			
+			Predicate<Entity> predicate = i -> !(i.equals(playerIn));
+			
+			PlayerEntity nearestPlayer = worldIn.getClosestPlayer(launcherXPos, launcherYPos, launcherZPos, 5000, predicate);
+			
+			if (nearestPlayer == null)
+			{
+				 found = false;
+			}
+			if (playerIn.inventory.hasItemStack(Items.SNOWBALL.getDefaultInstance()))
+			{
+				if (!found)
+				{
+					playerIn.sendMessage(new StringTextComponent("No player found"));
+				}
+				int snowballIndex = playerIn.inventory.getSlotFor(Items.SNOWBALL.getDefaultInstance());
+				playerIn.getHeldItemMainhand().damageItem(1, playerIn, null);
+				SnowballEntity ball = new SnowballEntity(worldIn, playerIn);
+				ball.addVelocity((nearestPlayer.getPosX() - launcherXPos)/100, (nearestPlayer.getPosY() - launcherYPos)/100+2, (nearestPlayer.getPosZ() - launcherZPos)/100);
+				worldIn.addEntity(ball);
+				playerIn.inventory.removeStackFromSlot(snowballIndex);
+			}
+			else
+			{
+				playerIn.sendMessage(new StringTextComponent("No snowball in inventory"));
+			}
+			
+			playerIn.getCooldownTracker().setCooldown(this, 20);
+		}
+		return super.onItemRightClick(worldIn, playerIn, handIn);
+	}
+	
+	@Override
+	public boolean isDamageable() {
+		return true;
+	}
+	
+	@Override
+	public int getItemStackLimit(ItemStack stack) {
+		return 1;
+	}
+}

@@ -1,0 +1,17 @@
+{
+  "minecraft:recipes/redstone/repeater": {
+    "criteria": {
+      "has_redstone_torch": "2020-04-02 21:28:39 +0200"
+    },
+    "done": true
+  },
+  "minecraft:adventure/adventuring_time": {
+    "criteria": {
+      "minecraft:forest": "2020-04-02 21:26:56 +0200",
+      "minecraft:taiga": "2020-04-02 21:27:14 +0200",
+      "minecraft:plains": "2020-04-02 21:27:06 +0200"
+    },
+    "done": false
+  },
+  "DataVersion": 2230
+}

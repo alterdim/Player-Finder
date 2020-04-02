@@ -1,0 +1,7 @@
+[31mars2020 16:22:36.489] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher running: args [--gameDir, ., --launchTarget, fmluserdevserver, --fml.mcpVersion, 20200307.202953, --fml.mcVersion, 1.15.2, --fml.forgeGroup, net.minecraftforge, --fml.forgeVersion, 31.1.30]
+[31mars2020 16:22:36.492] [main/INFO] [cpw.mods.modlauncher.Launcher/MODLAUNCHER]: ModLauncher 5.0.0-milestone.4+67+b1a340b starting: java version 1.8.0_211 by Oracle Corporation
+[31mars2020 16:22:37.107] [main/INFO] [net.minecraftforge.fml.loading.FixSSL/CORE]: Added Lets Encrypt root certificates as additional trust
+[31mars2020 16:22:38.072] [main/INFO] [cpw.mods.modlauncher.LaunchServiceHandler/MODLAUNCHER]: Launching target 'fmluserdevserver' with arguments [--gameDir, .]
+[31mars2020 16:22:38.691] [main/ERROR] [net.minecraft.server.dedicated.PropertyManager/]: Failed to load properties from file: server.properties
+[31mars2020 16:22:38.943] [main/WARN] [net.minecraft.server.ServerEula/]: Failed to load eula.txt
+[31mars2020 16:22:39.095] [main/INFO] [net.minecraft.server.MinecraftServer/]: You need to agree to the EULA in order to run the server. Go to eula.txt for more info.
